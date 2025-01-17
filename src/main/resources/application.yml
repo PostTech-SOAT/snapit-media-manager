@@ -1,0 +1,22 @@
+spring:
+    application:
+        name: snapit-media-manager
+
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: guest
+        password: guest
+    datasource:
+        url: jdbc:postgresql://localhost:5432/db_hexburger
+        username: postgres
+        password: postgres
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+aws:
+    s3:
+        accessKey:
+        region:
+        secretKey:
+        session-token:
