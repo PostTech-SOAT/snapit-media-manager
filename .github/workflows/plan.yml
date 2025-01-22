@@ -10,8 +10,8 @@ env:
   terragrunt_version: 0.67.10
   tfvars_file_name: deploy.hcl
   pr_number: ${{ github.event.number }}
-  eks_cluster_name: hexburger-eks-cluster
-  ECR_REPOSITORY: hexburger-pagamento
+  eks_cluster_name: snapit-eks-cluster
+  ECR_REPOSITORY: snapit-media-manager
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
