@@ -1,15 +1,16 @@
 package com.snapit.framework.aws;
 
-import com.snapit.application.interfaces.BucketService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.snapit.application.interfaces.BucketService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,9 +42,8 @@ public class S3Service implements BucketService {
     }
 
     @Override
-    public byte[] getOriginalFile(String s3Key) throws IOException {
-        S3Object s3Object = s3Client.getObject("snapit-history", s3Key);
-        return toByteArray(s3Object.getObjectContent());
+    public InputStream getOriginalFile(String s3Key) {
+        return s3Client.getObject("snapit-history", s3Key).getObjectContent();
     }
 
     @Override

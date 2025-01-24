@@ -1,17 +1,28 @@
 package com.snapit.interfaceadaptors.controller;
 
+import com.snapit.application.interfaces.BucketService;
 import com.snapit.application.usecase.video.DownloadVideoUseCase;
 import com.snapit.application.usecase.video.UploadVideoUseCase;
+import com.snapit.domain.entity.FrameProcessor;
+import com.snapit.framework.repository.FrameProcessorService;
+import com.snapit.interfaceadaptors.gateway.FrameProcessorGatewayJPA;
+import org.springframework.core.io.InputStreamResource;
+
+import java.io.InputStream;
+import java.time.LocalDateTime;
+
+import static com.snapit.domain.entity.VideoProcessingStatus.PROCESSING;
 
 public class VideoController {
 
-    public void upload() {
-        UploadVideoUseCase useCase = new UploadVideoUseCase();
-        useCase.upload();
+    public void upload(Integer frameInterval, InputStream video, String originalFilename, String email, BucketService bucketService, FrameProcessorService frameService) {
+        UploadVideoUseCase useCase = new UploadVideoUseCase(new FrameProcessorGatewayJPA(frameService));
+        FrameProcessor frameProcessor = new FrameProcessor(email, originalFilename, frameInterval, PROCESSING, LocalDateTime.now(), null, null);
+        useCase.upload(frameProcessor, video, bucketService);
     }
 
-    public void download() {
+    public InputStreamResource download(BucketService service, String email, String filename) {
         DownloadVideoUseCase useCase = new DownloadVideoUseCase();
-        useCase.download();
+        return new InputStreamResource(useCase.download(service, email, filename));
     }
 }

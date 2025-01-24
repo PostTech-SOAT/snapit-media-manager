@@ -1,3 +1,4 @@
+
 spring:
     application:
         name: snapit-media-manager
@@ -8,15 +9,23 @@ spring:
         username: guest
         password: guest
     datasource:
-        url: jdbc:postgresql://localhost:5432/db_hexburger
+        url: jdbc:postgresql://localhost:5432/db_snapit
         username: postgres
         password: postgres
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
+    servlet:
+        multipart:
+            max-file-size: 200MB
+            max-request-size: 200MB
 
 aws:
     s3:
         accessKey:
-        region:
+        region: us-east-1
         secretKey:
         session-token:
+server:
+    port: 8081

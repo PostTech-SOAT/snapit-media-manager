@@ -1,6 +1,7 @@
 package com.snapit.domain.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class FrameProcessor {
 
@@ -10,7 +11,7 @@ public class FrameProcessor {
 
     private final String originalFilename;
 
-    private final String frameInterval;
+    private final Integer frameInterval;
 
     private final VideoProcessingStatus status;
 
@@ -20,7 +21,7 @@ public class FrameProcessor {
 
     private final String framesFilename;
 
-    public FrameProcessor(String id, String email, String originalFilename, String frameInterval, VideoProcessingStatus status,
+    public FrameProcessor(String id, String email, String originalFilename, Integer frameInterval, VideoProcessingStatus status,
                           LocalDateTime createdAt, LocalDateTime finishedAt, String framesFilename) {
         this.id = id;
         this.email = email;
@@ -32,8 +33,9 @@ public class FrameProcessor {
         this.framesFilename = framesFilename;
     }
 
-    public FrameProcessor(String email, String originalFilename, String frameInterval, VideoProcessingStatus status, LocalDateTime createdAt,
+    public FrameProcessor(String email, String originalFilename, Integer frameInterval, VideoProcessingStatus status, LocalDateTime createdAt,
                           LocalDateTime finishedAt, String framesFilename) {
+        this.id = UUID.randomUUID().toString();
         this.email = email;
         this.originalFilename = originalFilename;
         this.frameInterval = frameInterval;
@@ -41,6 +43,7 @@ public class FrameProcessor {
         this.createdAt = createdAt;
         this.finishedAt = finishedAt;
         this.framesFilename = framesFilename;
+        frameValidation();
     }
 
     public String getId() {
@@ -55,7 +58,7 @@ public class FrameProcessor {
         return originalFilename;
     }
 
-    public String getFrameInterval() {
+    public Integer getFrameInterval() {
         return frameInterval;
     }
 
@@ -73,5 +76,22 @@ public class FrameProcessor {
 
     public String getFramesFilename() {
         return framesFilename;
+    }
+
+    private void frameValidation() {
+        if (!emailValidation()) {
+            throw new IllegalArgumentException("Invalid email on creating Frame Processor");
+        }
+        if (!frameIntervalValidation()) {
+            throw new IllegalArgumentException("Invalid frame interval on creating Frame Processor, should be between 10 and 60");
+        }
+    }
+
+    private boolean emailValidation() {
+        return email != null && email.contains("@");
+    }
+
+    private boolean frameIntervalValidation() {
+        return frameInterval != null && frameInterval >= 10 && frameInterval <= 60;
     }
 }

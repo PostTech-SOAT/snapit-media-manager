@@ -1,17 +1,20 @@
 package com.snapit.application.usecase.frameprocessor;
 
-import com.snapit.application.interfacegateway.FrameProcessorGateway;
+import com.snapit.application.interfacegateway.FrameProcessorDatabaseGateway;
+import com.snapit.domain.entity.FrameProcessor;
+
+import java.util.List;
 
 public class FindVideoProcessingStatusUseCase {
 
-    private final FrameProcessorGateway gateway;
+    private final FrameProcessorDatabaseGateway gateway;
 
-    public FindVideoProcessingStatusUseCase(FrameProcessorGateway gateway) {
+    public FindVideoProcessingStatusUseCase(FrameProcessorDatabaseGateway gateway) {
         this.gateway = gateway;
     }
 
-    public void findProcessingStatusByEmail(String email) {
-        gateway.findProcessingStatusByEmail(email);
+    public List<FrameProcessor> findProcessingStatusByEmail(String email) {
+        return gateway.findProcessingStatusByEmail(email);
     }
 
 }

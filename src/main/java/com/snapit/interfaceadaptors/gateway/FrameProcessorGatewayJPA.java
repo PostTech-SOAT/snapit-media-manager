@@ -1,24 +1,25 @@
 package com.snapit.interfaceadaptors.gateway;
 
-import com.snapit.application.interfacegateway.FrameProcessorGateway;
+import com.snapit.application.interfacegateway.FrameProcessorDatabaseGateway;
 import com.snapit.domain.entity.FrameProcessor;
 import com.snapit.domain.entity.VideoProcessingStatus;
-import com.snapit.framework.entity.EFrameProcessor;
-import com.snapit.interfaceadaptors.repositoryadapter.FrameProcessorRepositoryAdapter;
+import com.snapit.interfaceadaptors.entityadaptor.EFrameProcessorInterface;
+import com.snapit.interfaceadaptors.gateway.repositorydto.FrameProcessorRepositoryDTO;
+import com.snapit.interfaceadaptors.repositoryadapter.FrameProcessorServiceAdapter;
 
 import java.util.List;
 
-public class FrameProcessorGatewayJPA implements FrameProcessorGateway {
+public class FrameProcessorGatewayJPA implements FrameProcessorDatabaseGateway {
 
-    private final FrameProcessorRepositoryAdapter repository;
+    private final FrameProcessorServiceAdapter repository;
 
-    public FrameProcessorGatewayJPA(FrameProcessorRepositoryAdapter repository) {
+    public FrameProcessorGatewayJPA(FrameProcessorServiceAdapter repository) {
         this.repository = repository;
     }
 
     @Override
     public void downloadFrames() {
-
+        repository.downloadFrames("");
     }
 
     @Override
@@ -26,9 +27,19 @@ public class FrameProcessorGatewayJPA implements FrameProcessorGateway {
         return repository.findProcessingStatusByEmail(email).stream().map(this::entityToDomain).toList();
     }
 
-    public FrameProcessor entityToDomain(EFrameProcessor eFrameProcessor) {
+    @Override
+    public void create(FrameProcessor frameProcessor) {
+        repository.create(domainToRepositoryDto(frameProcessor));
+    }
+
+    public FrameProcessor entityToDomain(EFrameProcessorInterface eFrameProcessor) {
         return new FrameProcessor(eFrameProcessor.getId(), eFrameProcessor.getEmail(),
-                eFrameProcessor.getOriginalFilename(), eFrameProcessor.getFrameInterval(), VideoProcessingStatus.valueOf(eFrameProcessor.getStatus()),
+                eFrameProcessor.getOriginalFilename(), eFrameProcessor.getFrameInterval(), eFrameProcessor.getStatus(),
                 eFrameProcessor.getCreatedAt(), eFrameProcessor.getFinishedAt(), eFrameProcessor.getFramesFilename());
+    }
+
+    private FrameProcessorRepositoryDTO domainToRepositoryDto(FrameProcessor frameProcessor) {
+        return new FrameProcessorRepositoryDTO(frameProcessor.getId(), frameProcessor.getEmail(),
+                frameProcessor.getOriginalFilename(), frameProcessor.getFrameInterval(), frameProcessor.getStatus(), frameProcessor.getCreatedAt());
     }
 }

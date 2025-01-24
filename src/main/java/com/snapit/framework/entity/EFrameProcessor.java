@@ -1,20 +1,26 @@
 package com.snapit.framework.entity;
 
+import com.snapit.domain.entity.VideoProcessingStatus;
+import com.snapit.interfaceadaptors.entityadaptor.EFrameProcessorInterface;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
+
+import static jakarta.persistence.EnumType.STRING;
 
 @Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "FrameProcessor")
-public class EFrameProcessor {
+public class EFrameProcessor implements EFrameProcessorInterface {
 
     @Id
     private String id;
@@ -23,9 +29,10 @@ public class EFrameProcessor {
 
     private String originalFilename;
 
-    private String frameInterval;
+    private Integer frameInterval;
 
-    private String status;
+    @Enumerated(STRING)
+    private VideoProcessingStatus status;
 
     private LocalDateTime createdAt;
 
@@ -33,4 +40,12 @@ public class EFrameProcessor {
 
     private String framesFilename;
 
+    public EFrameProcessor(String id, String email, String originalFilename, Integer frameInterval, VideoProcessingStatus status, LocalDateTime createdAt) {
+        this.id = id;
+        this.email = email;
+        this.originalFilename = originalFilename;
+        this.frameInterval = frameInterval;
+        this.status = status;
+        this.createdAt = createdAt;
+    }
 }
