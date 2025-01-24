@@ -28,8 +28,9 @@ public class S3Service implements BucketService {
     }
 
     @Override
-    public void sendToProcessBucket(String filePath, String s3Key, String email, int frameInterval) {
+    public void sendToProcessBucket(String filePath, String s3Key, String id, String email, int frameInterval) {
         Map<String, String> metaList = new HashMap<>();
+        metaList.put("id", id);
         metaList.put("email", email);
         metaList.put("frameinterval", String.valueOf(frameInterval));
         ObjectMetadata metadata = new ObjectMetadata();

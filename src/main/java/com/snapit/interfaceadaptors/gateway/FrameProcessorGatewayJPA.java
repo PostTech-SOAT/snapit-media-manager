@@ -7,6 +7,7 @@ import com.snapit.interfaceadaptors.entityadaptor.EFrameProcessorInterface;
 import com.snapit.interfaceadaptors.gateway.repositorydto.FrameProcessorRepositoryDTO;
 import com.snapit.interfaceadaptors.repositoryadapter.FrameProcessorServiceAdapter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class FrameProcessorGatewayJPA implements FrameProcessorDatabaseGateway {
@@ -32,7 +33,18 @@ public class FrameProcessorGatewayJPA implements FrameProcessorDatabaseGateway {
         repository.create(domainToRepositoryDto(frameProcessor));
     }
 
-    public FrameProcessor entityToDomain(EFrameProcessorInterface eFrameProcessor) {
+    @Override
+    public void markProcessorAsFinished(String id, VideoProcessingStatus status, String framesFilename,
+                                        LocalDateTime finishedAt) {
+        repository.markFrameProcessorAsFinished(id, status, framesFilename, finishedAt);
+    }
+
+    @Override
+    public void markProcessorAsFailed(String id, VideoProcessingStatus status, LocalDateTime finishedAt) {
+        repository.markFrameProcessorAsFailed(id, status, finishedAt);
+    }
+
+    private FrameProcessor entityToDomain(EFrameProcessorInterface eFrameProcessor) {
         return new FrameProcessor(eFrameProcessor.getId(), eFrameProcessor.getEmail(),
                 eFrameProcessor.getOriginalFilename(), eFrameProcessor.getFrameInterval(), eFrameProcessor.getStatus(),
                 eFrameProcessor.getCreatedAt(), eFrameProcessor.getFinishedAt(), eFrameProcessor.getFramesFilename());

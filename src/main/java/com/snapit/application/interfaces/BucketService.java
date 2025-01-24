@@ -5,11 +5,11 @@ import java.io.InputStream;
 
 public interface BucketService {
 
-    void sendToHistoryBucket(String filePath, String s3Key);
+    void sendToHistoryBucket(String filePath, String bucketKey);
 
-    void sendToProcessBucket(String filePath, String s3Key, String email, int frameInterval);
+    void sendToProcessBucket(String filePath, String bucketKey, String id, String email, int frameInterval);
 
-    InputStream getOriginalFile(String s3Key);
+    InputStream getOriginalFile(String bucketKey);
 
-    byte[] getFramesFile(String s3Key) throws IOException;
+    byte[] getFramesFile(String bucketKey) throws IOException;
 }

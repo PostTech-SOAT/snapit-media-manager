@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
-import static com.snapit.application.util.S3Utils.getS3Key;
+import static com.snapit.application.util.BucketUtils.getBucketKey;
 
 public class UploadVideoUseCase {
 
@@ -26,8 +26,10 @@ public class UploadVideoUseCase {
         this.createFolder(filePathname);
         this.saveVideo(video, filePathname, frameProcessor.getOriginalFilename());
 
-        service.sendToHistoryBucket(filePathname + File.separator + frameProcessor.getOriginalFilename(), getS3Key(frameProcessor.getEmail(), frameProcessor.getOriginalFilename()));
-        service.sendToProcessBucket(filePathname + File.separator + frameProcessor.getOriginalFilename(), getS3Key(frameProcessor.getEmail(), frameProcessor.getOriginalFilename()), frameProcessor.getEmail(), frameProcessor.getFrameInterval());
+        String filePath = filePathname + File.separator + frameProcessor.getOriginalFilename();
+        service.sendToHistoryBucket(filePath, getBucketKey(frameProcessor.getEmail(), frameProcessor.getOriginalFilename()));
+        service.sendToProcessBucket(filePath, frameProcessor.getOriginalFilename(), frameProcessor.getId(), frameProcessor.getEmail(),
+                frameProcessor.getFrameInterval());
         FileUtils.deleteFiles(filePathname);
 
         databaseGateway.create(frameProcessor);
