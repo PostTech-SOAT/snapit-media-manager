@@ -31,19 +31,18 @@ public class FrameProcessor {
         this.createdAt = createdAt;
         this.finishedAt = finishedAt;
         this.framesFilename = framesFilename;
-        frameValidation();
     }
 
     public FrameProcessor(String email, String originalFilename, Integer frameInterval, VideoProcessingStatus status,
-                          LocalDateTime createdAt, LocalDateTime finishedAt, String framesFilename) {
+                          LocalDateTime createdAt) {
         this.id = UUID.randomUUID().toString();
         this.email = email;
         this.originalFilename = originalFilename;
         this.frameInterval = frameInterval;
         this.status = status;
         this.createdAt = createdAt;
-        this.finishedAt = finishedAt;
-        this.framesFilename = framesFilename;
+        this.finishedAt = null;
+        this.framesFilename = null;
         frameValidation();
     }
 
