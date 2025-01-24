@@ -5,9 +5,9 @@ import java.util.UUID;
 
 public class FrameProcessor {
 
-    private String id;
+    private final String id;
 
-    private String email;
+    private final String email;
 
     private final String originalFilename;
 
@@ -31,10 +31,11 @@ public class FrameProcessor {
         this.createdAt = createdAt;
         this.finishedAt = finishedAt;
         this.framesFilename = framesFilename;
+        frameValidation();
     }
 
-    public FrameProcessor(String email, String originalFilename, Integer frameInterval, VideoProcessingStatus status, LocalDateTime createdAt,
-                          LocalDateTime finishedAt, String framesFilename) {
+    public FrameProcessor(String email, String originalFilename, Integer frameInterval, VideoProcessingStatus status,
+                          LocalDateTime createdAt, LocalDateTime finishedAt, String framesFilename) {
         this.id = UUID.randomUUID().toString();
         this.email = email;
         this.originalFilename = originalFilename;

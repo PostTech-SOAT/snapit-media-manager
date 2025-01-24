@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface FrameProcessorRepository extends JpaRepository<EFrameProcessor, String> {
@@ -24,4 +25,5 @@ public interface FrameProcessorRepository extends JpaRepository<EFrameProcessor,
             "id = :id", nativeQuery = true)
     void markFrameProcessorAsFailed(String id, String status, LocalDateTime finishedAt);
 
+    Optional<EFrameProcessor> findByOriginalFilenameAndEmail(String originalFilename, String email);
 }

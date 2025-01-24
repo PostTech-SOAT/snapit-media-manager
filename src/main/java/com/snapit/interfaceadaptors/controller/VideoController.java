@@ -21,8 +21,8 @@ public class VideoController {
         useCase.upload(frameProcessor, video, bucketService);
     }
 
-    public InputStreamResource download(BucketService service, String email, String filename) {
-        DownloadVideoUseCase useCase = new DownloadVideoUseCase();
-        return new InputStreamResource(useCase.download(service, email, filename));
+    public InputStreamResource download(String email, String id, BucketService service, FrameProcessorService frameService) {
+        DownloadVideoUseCase useCase = new DownloadVideoUseCase(new FrameProcessorGatewayJPA(frameService));
+        return useCase.download(email, id, service);
     }
 }

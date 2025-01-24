@@ -9,6 +9,7 @@ import com.snapit.interfaceadaptors.repositoryadapter.FrameProcessorServiceAdapt
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class FrameProcessorGatewayJPA implements FrameProcessorDatabaseGateway {
 
@@ -16,11 +17,6 @@ public class FrameProcessorGatewayJPA implements FrameProcessorDatabaseGateway {
 
     public FrameProcessorGatewayJPA(FrameProcessorServiceAdapter repository) {
         this.repository = repository;
-    }
-
-    @Override
-    public void downloadFrames() {
-        repository.downloadFrames("");
     }
 
     @Override
@@ -42,6 +38,15 @@ public class FrameProcessorGatewayJPA implements FrameProcessorDatabaseGateway {
     @Override
     public void markProcessorAsFailed(String id, VideoProcessingStatus status, LocalDateTime finishedAt) {
         repository.markFrameProcessorAsFailed(id, status, finishedAt);
+    }
+
+    public Optional<FrameProcessor> findFileNameById(String id) {
+        return repository.findFileNameById(id).map(this::entityToDomain);
+    }
+
+    @Override
+    public Optional<FrameProcessor> findByFilenameAndEmail(String originalFilename, String email) {
+        return repository.findByFilenameAndEmail(originalFilename, email).map(this::entityToDomain);
     }
 
     private FrameProcessor entityToDomain(EFrameProcessorInterface eFrameProcessor) {

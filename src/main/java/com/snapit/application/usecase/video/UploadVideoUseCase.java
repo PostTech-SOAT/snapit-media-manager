@@ -3,6 +3,7 @@ package com.snapit.application.usecase.video;
 import com.snapit.application.interfacegateway.FrameProcessorDatabaseGateway;
 import com.snapit.application.interfaces.BucketService;
 import com.snapit.application.util.FileUtils;
+import com.snapit.application.util.exception.ConflictException;
 import com.snapit.application.util.exception.SaveVideoException;
 import com.snapit.domain.entity.FrameProcessor;
 
@@ -22,6 +23,10 @@ public class UploadVideoUseCase {
     }
 
     public void upload(FrameProcessor frameProcessor, InputStream video, BucketService service) {
+        if(databaseGateway.findByFilenameAndEmail(frameProcessor.getOriginalFilename(), frameProcessor.getEmail()).isPresent()) {
+            throw new ConflictException("File already exists");
+        }
+
         String filePathname = frameProcessor.getEmail() + "-" + frameProcessor.getOriginalFilename().substring(0, frameProcessor.getOriginalFilename().lastIndexOf('.'));
         this.createFolder(filePathname);
         this.saveVideo(video, filePathname, frameProcessor.getOriginalFilename());

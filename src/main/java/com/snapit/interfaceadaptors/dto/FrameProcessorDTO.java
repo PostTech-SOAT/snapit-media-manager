@@ -4,14 +4,23 @@ import com.snapit.domain.entity.VideoProcessingStatus;
 
 public class FrameProcessorDTO {
 
-    private String email;
-    private String originalFilename;
-    private VideoProcessingStatus status;
+    private final String id;
 
-    public FrameProcessorDTO(String email, String originalFilename, VideoProcessingStatus status) {
+    private final String email;
+
+    private final String originalFilename;
+
+    private final VideoProcessingStatus status;
+
+    public FrameProcessorDTO(String id, String email, String originalFilename, VideoProcessingStatus status) {
+        this.id = id;
         this.email = email;
         this.originalFilename = originalFilename;
         this.status = status;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -26,15 +35,4 @@ public class FrameProcessorDTO {
         return status;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setOriginalFilename(String originalFilename) {
-        this.originalFilename = originalFilename;
-    }
-
-    public void setStatus(VideoProcessingStatus status) {
-        this.status = status;
-    }
 }

@@ -11,5 +11,5 @@ public interface BucketService {
 
     InputStream getOriginalFile(String bucketKey);
 
-    byte[] getFramesFile(String bucketKey) throws IOException;
+    InputStream getFramesFile(String bucketKey) throws IOException;
 }

@@ -5,18 +5,20 @@ import com.snapit.application.usecase.frameprocessor.FindVideoProcessingStatusUs
 import com.snapit.application.usecase.frameprocessor.MarkFrameProcessorAsFailedUseCase;
 import com.snapit.application.usecase.frameprocessor.MarkFrameProcessorAsFinishedUseCase;
 import com.snapit.framework.aws.S3Service;
+import com.snapit.framework.repository.FrameProcessorService;
 import com.snapit.interfaceadaptors.dto.FrameProcessorDTO;
 import com.snapit.interfaceadaptors.gateway.FrameProcessorGatewayJPA;
 import com.snapit.interfaceadaptors.presenter.FrameProcessorPresenter;
 import com.snapit.interfaceadaptors.repositoryadapter.FrameProcessorServiceAdapter;
+import org.springframework.core.io.InputStreamResource;
 
 import java.util.List;
 
 public class FrameProcessorController {
 
-    public void download(S3Service bucketService, FrameProcessorServiceAdapter service) {
+    public InputStreamResource download(String email, String id, S3Service bucketService, FrameProcessorService service) {
         DownloadFramesUseCase useCase = new DownloadFramesUseCase(new FrameProcessorGatewayJPA(service));
-        useCase.downloadFrames();
+        return useCase.downloadFrames(email, id, bucketService);
     }
 
     public List<FrameProcessorDTO> findProcessingStatusByEmail(String email, FrameProcessorServiceAdapter service) {

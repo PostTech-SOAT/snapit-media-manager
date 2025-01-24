@@ -1,20 +1,21 @@
 package com.snapit.framework.api;
 
+import com.snapit.application.util.exception.ConflictException;
 import com.snapit.framework.aws.S3Service;
 import com.snapit.framework.repository.FrameProcessorService;
 import com.snapit.interfaceadaptors.controller.VideoController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 
+import static com.snapit.application.util.FileUtils.getVideoName;
 import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.CONFLICT;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,14 +34,21 @@ public class VideoAPI {
             return ResponseEntity.ok().build();
         } catch (IOException e) {
             return new ResponseEntity<>(e.getMessage(), BAD_REQUEST);
+        } catch (ConflictException e) {
+            return ResponseEntity.status(CONFLICT).build();
         }
     }
 
-    @GetMapping("/{filename}/download")
-    public ResponseEntity<InputStreamResource> download(@RequestHeader("userEmail") String email, @PathVariable String filename) {
+    @GetMapping("/{id}/download")
+    public ResponseEntity<InputStreamResource> download(@RequestHeader("userEmail") String email, @PathVariable String id) {
         VideoController controller = new VideoController();
-        return ResponseEntity.ok()
-                .header(CONTENT_DISPOSITION, "attachment;filename=" + filename)
-                .body(controller.download(bucketService, email, filename));
+        try {
+            InputStreamResource video = controller.download(email, id, bucketService, frameService);
+            return ResponseEntity.ok()
+                    .header(CONTENT_DISPOSITION, "attachment;filename=" + getVideoName(video.getDescription()))
+                    .body(video);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

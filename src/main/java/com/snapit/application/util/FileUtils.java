@@ -4,6 +4,10 @@ import java.io.File;
 
 public class FileUtils {
 
+    private FileUtils() {
+
+    }
+
     public static void deleteFiles(String dirToDelete) {
         File file = new File(dirToDelete);
         File[] contents = file.listFiles();
@@ -21,4 +25,7 @@ public class FileUtils {
         }
     }
 
+    public static String getVideoName(String filename) {
+        return filename.substring(filename.indexOf("[") + 1, filename.indexOf("]")).replaceAll(" ", "-");
+    }
 }
