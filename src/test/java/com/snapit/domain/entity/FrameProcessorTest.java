@@ -28,8 +28,20 @@ class FrameProcessorTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenFrameIntervalIsInvalid() {
+    void shouldThrowExceptionWhenFrameIntervalIsLessThanTen() {
         assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("test@email.com", "originalFilename", 0,
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenFrameIntervalIsGreaterThanSixty() {
+        assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("test@email.com", "originalFilename", 61,
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenFrameIntervalIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("test@email.com", "originalFilename", null,
                 VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
     }
 
@@ -38,4 +50,11 @@ class FrameProcessorTest {
         assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("email", "originalFilename", 20,
                 VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
     }
+
+    @Test
+    void shouldThrowExceptionWhenEmailIsNull() {
+        assertThrows(IllegalArgumentException.class, () -> new FrameProcessor(null, "originalFilename", 20,
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+    }
+
 }
