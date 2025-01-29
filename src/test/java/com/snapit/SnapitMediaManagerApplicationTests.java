@@ -10,7 +10,7 @@ class SnapitMediaManagerApplicationTests {
 
 	@Test
 	void contextLoads() {
-		//not to do
+		// not to do
 	}
 
 }
