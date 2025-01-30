@@ -31,7 +31,6 @@ public class FrameProcessor {
         this.createdAt = createdAt;
         this.finishedAt = finishedAt;
         this.framesFilename = framesFilename;
-        frameValidation();
     }
 
     public FrameProcessor(String email, String originalFilename, Integer frameInterval, VideoProcessingStatus status,
