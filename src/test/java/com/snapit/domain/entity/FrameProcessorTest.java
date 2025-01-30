@@ -21,7 +21,7 @@ class FrameProcessorTest {
     @Test
     void shouldCreateFrameProcessorWithoutId() {
         FrameProcessor frameProcessor = new FrameProcessor("test@email.com", "originalFilename", 20,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20));
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null);
 
         assertNotNull(frameProcessor);
         assertNotNull(frameProcessor.getId());
@@ -30,31 +30,31 @@ class FrameProcessorTest {
     @Test
     void shouldThrowExceptionWhenFrameIntervalIsLessThanTen() {
         assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("test@email.com", "originalFilename", 0,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null));
     }
 
     @Test
     void shouldThrowExceptionWhenFrameIntervalIsGreaterThanSixty() {
         assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("test@email.com", "originalFilename", 61,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null));
     }
 
     @Test
     void shouldThrowExceptionWhenFrameIntervalIsNull() {
         assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("test@email.com", "originalFilename", null,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null));
     }
 
     @Test
     void shouldThrowExceptionWhenEmailIsInvalid() {
         assertThrows(IllegalArgumentException.class, () -> new FrameProcessor("email", "originalFilename", 20,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null));
     }
 
     @Test
     void shouldThrowExceptionWhenEmailIsNull() {
         assertThrows(IllegalArgumentException.class, () -> new FrameProcessor(null, "originalFilename", 20,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20)));
+                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null));
     }
 
 }

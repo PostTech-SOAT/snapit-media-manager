@@ -17,7 +17,7 @@ public class VideoController {
 
     public void upload(Integer frameInterval, InputStream video, String originalFilename, String email, BucketService bucketService, FrameProcessorService frameService) {
         UploadVideoUseCase useCase = new UploadVideoUseCase(new FrameProcessorGatewayJPA(frameService));
-        FrameProcessor frameProcessor = new FrameProcessor(email, originalFilename, frameInterval, PROCESSING, LocalDateTime.now());
+        FrameProcessor frameProcessor = new FrameProcessor(email, originalFilename, frameInterval, PROCESSING, LocalDateTime.now(), null, null);
         useCase.upload(frameProcessor, video, bucketService);
     }
 
