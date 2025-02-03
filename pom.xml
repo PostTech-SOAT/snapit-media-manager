@@ -15,6 +15,9 @@
 	<description>Media Manager for Snapit</description>
 	<properties>
 		<java.version>21</java.version>
+		<sonar.organization>postech-soat-hexburguer</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.projectKey>PostTech-SOAT_snapit-media-manager</sonar.projectKey>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
