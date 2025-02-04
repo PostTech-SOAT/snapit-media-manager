@@ -20,7 +20,7 @@ COPY src ./src
 #Buildando a aplicação
 RUN mvn package -DskipTests
 
-#Expondo a porta 28082
+#Expondo a porta 28081
 EXPOSE 28081
 
 #Executando a aplicação

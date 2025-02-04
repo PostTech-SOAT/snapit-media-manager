@@ -52,7 +52,7 @@ helm_service_template = [{
   helm_chart_config_map = {
     "APPLICATION_NAME" = "snapit-media-manager"
     "API_DOCS_PATH"    = "/api-docs"
-    "API_PORT"         = "28082"
+    "API_PORT"         = "28081"
     "DATABASE_URL"     = "jdbc:postgresql://snapit-db.cq23vjwswp3a.us-east-1.rds.amazonaws.com:5432/postgres"
   }
 
