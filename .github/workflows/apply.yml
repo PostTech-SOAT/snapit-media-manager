@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Terraform Apply
-        uses: ./.github/apply
+        uses: PostTech-SOAT/snapit-actions/.github/terraform-apply@main
         with:
           terraform_version: ${{ env.terraform_version }}
           terraform_directory: ${{ env.terraform_directory }}

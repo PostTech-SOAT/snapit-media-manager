@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Publish to ECR
-        uses: ./.github/publish
+        uses: PostTech-SOAT/snapit-actions/.github/publish@main
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
