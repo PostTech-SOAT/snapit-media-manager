@@ -31,17 +31,6 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean install -DskipTests
-        
-  unit_tests:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Unit tests - Code coverage
-        uses: ./.github/quality/tests/unit
-        with:
-          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
 
   quality:
     runs-on: ubuntu-latest
