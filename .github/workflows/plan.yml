@@ -41,7 +41,7 @@ jobs:
           fetch-depth: 0
 
       - name: SonarQube - Quality Gate
-        uses: ./.github/quality/quality-gate
+        uses: PostTech-SOAT/snapit-actions/.github/quality/quality-gate@main
         with:
           sonarqube_token: ${{ secrets.SONAR_TOKEN }}
   
