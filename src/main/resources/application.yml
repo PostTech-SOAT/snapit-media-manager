@@ -1,17 +1,16 @@
-
 spring:
     application:
         name: snapit-media-manager
 
     rabbitmq:
-        host: localhost
+        host: a5c26c3dc1a9746a0a098ca86b70b402-1576489231.us-east-1.elb.amazonaws.com
         port: 5672
-        username: guest
-        password: guest
+        username: hexqueue
+        password: 1xo4r9VIU4ARLW3f
     datasource:
-        url: jdbc:postgresql://localhost:5432/db_snapit
-        username: postgres
-        password: postgres
+        url: ${DATABASE_URL}
+        username: ${DATABASE_USER}
+        password: ${DATABASE_PASSWORD}
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         hibernate:
@@ -28,4 +27,4 @@ aws:
         secretKey:
         session-token:
 server:
-    port: 8081
+    port: 28081
