@@ -14,4 +14,10 @@ public class FrameProcessorUtils {
                 LocalDateTime.of(2025, 1, 22, 12, 20),
                 LocalDateTime.of(2025, 1, 22, 16, 20), "firstVideo.zip");
     }
+
+    public static FrameProcessor getFrameProcessor(String uuid) {
+        return new FrameProcessor(uuid, "email@test.com", "firstVideo.mp4", 10, FINISHED,
+                LocalDateTime.of(2025, 1, 22, 12, 20),
+                LocalDateTime.of(2025, 1, 22, 16, 20), "firstVideo.zip");
+    }
 }
