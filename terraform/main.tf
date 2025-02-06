@@ -23,8 +23,8 @@ module "kubernetes_environment" {
   source                = "./modules/kubernetes"
   helm_service_template = var.helm_service_template
   kubernetes_secrets_data = {
-    DATABASE_USER     = base64encode(local.secret_data.username)
-    DATABASE_PASSWORD = base64encode(local.secret_data.password)
+    DATABASE_USER     = local.secret_data.username
+    DATABASE_PASSWORD = local.secret_data.password
   }
 }
 

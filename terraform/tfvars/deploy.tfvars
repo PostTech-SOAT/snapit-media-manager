@@ -42,9 +42,7 @@ helm_service_template = [{
     "autoscaling.maxReplicas"                       = "1"
     "autoscaling.targetCPUUtilizationPercentage"    = "70"
     "autoscaling.targetMemoryUtilizationPercentage" = "70"
-    "secretName"                                    = "sc-snapit-media-manager"
-    "configMap.enabled"                             = "true"
-    "configMap.name"                                = "cm-snapit-media-manager"
+    "configMap.enabled"                             = "false"
     "nameOverride"                                  = "snapit-media-manager"
     "fullnameOverride"                              = "snapit-media-manager-api"
   }
