@@ -3,25 +3,23 @@ package com.snapit.domain.entity;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static com.snapit.domain.entity.VideoProcessingStatus.FINISHED;
+import static com.snapit.util.FrameProcessorUtils.getFrameProcessor;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FrameProcessorTest {
 
     @Test
     void shouldCreateFrameProcessor() {
-        FrameProcessor frameProcessor = new FrameProcessor(UUID.randomUUID().toString(), "test@email.com", "originalFilename", 20,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), LocalDateTime.now(), "framesFilename");
+        FrameProcessor frameProcessor = getFrameProcessor();
 
         assertNotNull(frameProcessor);
     }
 
     @Test
     void shouldCreateFrameProcessorWithoutId() {
-        FrameProcessor frameProcessor = new FrameProcessor("test@email.com", "originalFilename", 20,
-                VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null);
+        FrameProcessor frameProcessor = getFrameProcessor();
 
         assertNotNull(frameProcessor);
         assertNotNull(frameProcessor.getId());
@@ -57,4 +55,27 @@ class FrameProcessorTest {
                 VideoProcessingStatus.PROCESSING, LocalDateTime.of(2025, 1, 22, 12, 20), null, null));
     }
 
+    @Test
+    void shouldGetFinishedAt() {
+        FrameProcessor frameProcessor = getFrameProcessor();
+
+        assertNotNull(frameProcessor.getFinishedAt());
+        assertEquals(LocalDateTime.of(2025, 1, 22, 16, 20), frameProcessor.getFinishedAt());
+    }
+
+    @Test
+    void shouldGetCreatedAt() {
+        FrameProcessor frameProcessor = getFrameProcessor();
+
+        assertNotNull(frameProcessor.getCreatedAt());
+        assertEquals(LocalDateTime.of(2025, 1, 22, 12, 20), frameProcessor.getCreatedAt());
+    }
+
+    @Test
+    void shouldGetStatus() {
+        FrameProcessor frameProcessor = getFrameProcessor();
+
+        assertNotNull(frameProcessor.getStatus());
+        assertEquals(FINISHED, frameProcessor.getStatus());
+    }
 }

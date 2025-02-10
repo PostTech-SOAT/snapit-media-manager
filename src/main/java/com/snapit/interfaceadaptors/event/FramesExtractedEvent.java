@@ -1,11 +1,11 @@
 package com.snapit.interfaceadaptors.event;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 import java.io.Serializable;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class FramesExtractedEvent implements Serializable {
 
