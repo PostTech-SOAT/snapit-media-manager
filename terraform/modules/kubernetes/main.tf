@@ -13,7 +13,7 @@ locals {
 resource "kubernetes_config_map" "configmap_service" {
   for_each = { for idx, service in var.helm_service_template : idx => service if service.is_there_config_map }
   metadata {
-    name      = "${each.value.name}-map"
+    name      = "cm-${each.value.name}"
     namespace = each.value.namespaces
   }
 

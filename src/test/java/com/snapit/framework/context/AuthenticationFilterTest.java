@@ -36,6 +36,7 @@ class AuthenticationFilterTest {
         String email = "test@example.com";
         String token = createToken(email);
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+        when(request.getRequestURI()).thenReturn("/api/v1/process");
 
         authenticationFilter.doFilter(request, response, chain);
 
@@ -48,6 +49,7 @@ class AuthenticationFilterTest {
         String email = "test@example.com";
         String token = createToken(email);
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+        when(request.getRequestURI()).thenReturn("/api/v1/process");
 
         authenticationFilter.doFilter(request, response, chain);
 
@@ -64,6 +66,7 @@ class AuthenticationFilterTest {
     @Test
     void testDoFilterWithInvalidToken() {
         when(request.getHeader("Authorization")).thenReturn("invalidToken");
+        when(request.getRequestURI()).thenReturn("/api/v1/process");
 
         assertThrows(BadCredentialsException.class, () -> authenticationFilter.doFilter(request, response, chain));
     }
@@ -71,6 +74,7 @@ class AuthenticationFilterTest {
     @Test
     void testDoFilterWithoutAuthorizationHeader() {
         when(request.getHeader("Authorization")).thenReturn(null);
+        when(request.getRequestURI()).thenReturn("/api/v1/process");
 
         assertThrows(BadCredentialsException.class, () -> authenticationFilter.doFilter(request, response, chain));
     }
@@ -80,8 +84,18 @@ class AuthenticationFilterTest {
         String token = createTokenWithoutUsername();
 
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
+        when(request.getRequestURI()).thenReturn("/api/v1/process");
 
         assertThrows(BadCredentialsException.class, () -> authenticationFilter.doFilter(request, response, chain));
+    }
+
+    @Test
+    void shouldIgnoreHealthCheckEndpoints() throws IOException, ServletException {
+        when(request.getRequestURI()).thenReturn("/actuator/health/readiness");
+
+        authenticationFilter.doFilter(request, response, chain);
+
+        verify(chain, times(1)).doFilter(request, response);
     }
 
     private String createToken(String email) {
