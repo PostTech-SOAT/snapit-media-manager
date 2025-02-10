@@ -3,7 +3,7 @@ spring:
         name: snapit-media-manager
 
     rabbitmq:
-        host: a5c26c3dc1a9746a0a098ca86b70b402-1576489231.us-east-1.elb.amazonaws.com
+        host: abc666f7747244c7f82dace641f73e29-1183275588.us-east-1.elb.amazonaws.com
         port: 5672
         username: hexqueue
         password: 1xo4r9VIU4ARLW3f
@@ -22,10 +22,10 @@ spring:
 
 aws:
     s3:
-        accessKey:
-        region: us-east-1
-        secretKey:
-        session-token:
+        accessKey: ${AWS_ACCESS_KEY_ID}
+        secretKey: ${AWS_SECRET_ACCESS_KEY}
+        session-token: ${AWS_SESSION_TOKEN}
+        region: ${AWS_REGION}
 server:
     port: 28081
 
