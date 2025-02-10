@@ -1,14 +1,20 @@
 package com.snapit.framework.context;
 
-import com.snapit.application.util.exception.BadCredentialsException;
-import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
+import java.io.IOException;
+import java.util.Base64;
+
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.util.Base64;
+import com.snapit.application.util.exception.BadCredentialsException;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 
 @Component
 @AllArgsConstructor
@@ -20,6 +26,11 @@ public class AuthenticationFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         String authorization = request.getHeader("Authorization");
+        String requestURI = request.getRequestURI();
+        if (requestURI.equals("/actuator/health/readiness") || requestURI.equals("/actuator/health/liveness") || requestURI.equals("/actuator/prometheus")) {
+            chain.doFilter(request, response);
+            return;
+        }
         if (authorization != null && authorization.startsWith(BEARER_PREFIX)) {
             String token = authorization.substring(BEARER_PREFIX.length());
             Base64.Decoder decoder = Base64.getUrlDecoder();
