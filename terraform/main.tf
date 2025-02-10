@@ -23,8 +23,12 @@ module "kubernetes_environment" {
   source                = "./modules/kubernetes"
   helm_service_template = var.helm_service_template
   kubernetes_secrets_data = {
-    DATABASE_USER     = local.secret_data.username
-    DATABASE_PASSWORD = local.secret_data.password
+    DATABASE_USER         = local.secret_data.username
+    DATABASE_PASSWORD     = local.secret_data.password
+    AWS_ACCESS_KEY_ID     = var.AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY = var.AWS_SECRET_ACCESS_KEY
+    AWS_REGION            = var.AWS_REGION
+    AWS_SESSION_TOKEN     = var.AWS_SESSION_TOKEN
   }
 }
 
@@ -36,3 +40,4 @@ output "name" {
   value     = module.kubernetes_environment.secret_data
   sensitive = true
 }
+
