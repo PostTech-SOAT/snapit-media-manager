@@ -18,6 +18,7 @@
 		<sonar.organization>postech-soat-hexburguer</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.projectKey>PostTech-SOAT_snapit-media-manager</sonar.projectKey>
+		<sonar.exclusions>src/main/java/com/snapit/SnapitMediaManagerApplication.java,src/main/java/com/snapit/framework/entity/*.java,src/main/java/com/snapit/interfaceadaptors/gateway/repositorydto/*.java,src/main/java/com/snapit/interfaceadaptors/dto/*.java</sonar.exclusions>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -75,6 +76,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- JSON -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20230618</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -100,6 +108,26 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--		Testes de comportamento		-->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>7.13.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit-platform-engine</artifactId>
+			<version>7.13.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<version>1.9.3</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -137,4 +165,25 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>system-test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>3.1.2</version>
+						<configuration>
+							<includes combine.self="override">
+								<include>**/CucumberTestRunner.java</include>
+							</includes>
+							<excludes combine.self="override">
+							</excludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
