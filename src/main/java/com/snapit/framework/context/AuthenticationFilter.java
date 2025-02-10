@@ -1,20 +1,16 @@
 package com.snapit.framework.context;
 
-import java.io.IOException;
-import java.util.Base64;
-
+import com.snapit.application.util.exception.BadCredentialsException;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
-import com.snapit.application.util.exception.BadCredentialsException;
+import java.io.IOException;
+import java.util.Base64;
 
-import jakarta.servlet.Filter;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
+import static java.util.Arrays.stream;
 
 @Component
 @AllArgsConstructor
@@ -22,15 +18,19 @@ public class AuthenticationFilter implements Filter {
 
     private static final String BEARER_PREFIX = "Bearer ";
 
+    private static final String[] IGNORED_PATHS = {"/actuator/health/readiness", "/actuator/health/liveness", "/actuator/prometheus"};
+
     @Override
     public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         String authorization = request.getHeader("Authorization");
+
         String requestURI = request.getRequestURI();
-        if (requestURI.equals("/actuator/health/readiness") || requestURI.equals("/actuator/health/liveness") || requestURI.equals("/actuator/prometheus")) {
+        if (stream(IGNORED_PATHS).anyMatch(requestURI::contains)) {
             chain.doFilter(request, response);
             return;
         }
+
         if (authorization != null && authorization.startsWith(BEARER_PREFIX)) {
             String token = authorization.substring(BEARER_PREFIX.length());
             Base64.Decoder decoder = Base64.getUrlDecoder();
