@@ -14,9 +14,8 @@
 # Links para acessar os códigos
 - Snapit Media Manager: https://github.com/PostTech-SOAT/snapit-media-manager
 - Snapit Frame Maker: https://github.com/PostTech-SOAT/snapit-frame-maker
-- Snapit Notification: https://github.com/PostTech-SOAT/snapit-notification
+- Snapit Notification: https://github.com/PostTech-SOAT/snapit-notification  
 Em cada microsserviço tem o código do terraform que cria o helm deploy, configmap e secrets.
-
 - Snapit Authentication (lambda para criar e logar usuário e o Cognito): https://github.com/PostTech-SOAT/snapit-authentication
 - Snapit Authorization (lambda para a autorização de APIs): https://github.com/PostTech-SOAT/snapit-authorization
 - Snapit Actions (repositório de template de actions): https://github.com/PostTech-SOAT/snapit-actions
@@ -30,7 +29,7 @@ Nosso projeto foi desenvolvido em Java em conjunto com o framework SpingBoot. Co
 Decidimos utilizar a ferramenta PostgreSQL como nosso banco de dados, devido principalmente a sua fácil escalabilidade e sólida garantia de integridade de dados e suporte a transações ACID, bom para aplicações que precisam garantir a consistência dos dados.
 
 ### Testes
-- Testes unitários: Contamos com mais de 92% de cobertura em todos os nossos projetos. Eles garantem que cada parte do código funcione corretamente de forma isolada, facilitando a identificação de erros precocemente. Além disso, ajudam a manter a qualidade do código à medida que o projeto cresce, promovendo maior confiança nas mudanças e facilitando a manutenção do sistema.
+- Testes unitários: Contamos com mais de 95% de cobertura em todos os nossos projetos. Eles garantem que cada parte do código funcione corretamente de forma isolada, facilitando a identificação de erros precocemente. Além disso, ajudam a manter a qualidade do código à medida que o projeto cresce, promovendo maior confiança nas mudanças e facilitando a manutenção do sistema.
 - Testes de integração: Todas as nossas APIs possuem testes de integração, que verificam a interação entre diferentes componentes do sistema, garantindo que funcionem corretamente em conjunto. Eles ajudam a identificar problemas de comunicação ou falhas em fluxos de dados entre módulos. Ao usar testes de integração, é possível detectar erros que não seriam encontrados em testes unitários, garantindo a integridade do sistema como um todo.
 - BDD: O projeto foi construído usando essa metodologia para alinhar expectativas, melhorar a documentação e garantir que as funcionalidades atendam às necessidades reais do usuário.
 
