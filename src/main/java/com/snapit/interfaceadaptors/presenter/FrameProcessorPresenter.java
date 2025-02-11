@@ -5,6 +5,9 @@ import com.snapit.interfaceadaptors.dto.FrameProcessorDTO;
 
 public class FrameProcessorPresenter {
 
+    private FrameProcessorPresenter() {
+    }
+
     public static FrameProcessorDTO toDTO(FrameProcessor frameProcessor) {
         return new FrameProcessorDTO(frameProcessor.getId(), frameProcessor.getEmail(), frameProcessor.getOriginalFilename(), frameProcessor.getStatus());
     }
