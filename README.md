@@ -11,6 +11,18 @@
 -	RM 355426 – Leandro Airton Bezerra
 -	RM 354475 – Willian Novais Planciunas
 
+# Links para acessar os códigos
+- Snapit Media Manager: https://github.com/PostTech-SOAT/snapit-media-manager
+- Snapit Frame Maker: https://github.com/PostTech-SOAT/snapit-frame-maker
+- Snapit Notification: https://github.com/PostTech-SOAT/snapit-notification
+Em cada microsserviço tem o código do terraform que cria o helm deploy, configmap e secrets.
+
+- Snapit Authentication (lambda para criar e logar usuário e o Cognito): https://github.com/PostTech-SOAT/snapit-authentication
+- Snapit Authorization (lambda para a autorização de APIs): https://github.com/PostTech-SOAT/snapit-authorization
+- Snapit Actions (repositório de template de actions): https://github.com/PostTech-SOAT/snapit-actions
+- Snapit Database (para subir o RDS): https://github.com/PostTech-SOAT/snapit-database
+- Snapit Infraestructure (cria as redes, o EKS, o Nginx, o RabbitMq e o API Gateway): https://github.com/PostTech-SOAT/snapit-infraestructure
+
 ## Tecnologias escolhidas
 Nosso projeto foi desenvolvido em Java em conjunto com o framework SpingBoot. Como arquitetura, adotamos o conceito de microsserviços com Clean Architecture, para separar as responsabilidades da nossa aplicação, o que ajuda na testabilidade e independência das tecnologias escolhidas na implementação. Além de favorecer a escalabilidade e evolução do software. Nossa solução conta com cobertura de 100% de testes unitários, testes de integração e BDD.
 
