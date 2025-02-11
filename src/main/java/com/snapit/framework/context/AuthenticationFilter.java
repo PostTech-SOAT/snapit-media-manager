@@ -18,7 +18,7 @@ public class AuthenticationFilter implements Filter {
 
     private static final String BEARER_PREFIX = "Bearer ";
 
-    private static final String[] IGNORED_PATHS = {"/actuator/health/readiness", "/actuator/health/liveness", "/actuator/prometheus"};
+    private static final String[] IGNORED_PATHS = {"/actuator/health/readiness", "/actuator/health/liveness"};
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain) throws IOException, ServletException {
